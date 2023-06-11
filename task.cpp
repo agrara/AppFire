@@ -38,6 +38,7 @@ int listAllTasks(std::vector<Task *> tasks)
             std::cout << i << ". " << task->getTitle() << " -> " << task->getDesc() << std::endl;
             i++;
         }
+        std::cout << std::endl;
         return 0;
     }
     std::cout << "Nothing to show!" << std::endl

@@ -10,12 +10,6 @@ public:
     // Constructors
     Task(std::string newTitle, std::string newDesc) : title(newTitle), desc(newDesc) {}
 
-    // Destructor
-    virtual ~Task()
-    {
-        std::cout << "Congaratulations for finishing " << this->getTitle() << "!" << std::endl;
-    }
-
     // Title
     std::string getTitle()
     {
@@ -41,7 +35,30 @@ private:
     std::string desc;
 };
 
+/*
+Adds a new task
+@params title, description
+@return pointer to the newly created task
+*/
 Task *addTask(std::string, std::string);
+
+/*
+Deletes a given task
+@params pointer to the task to be deleted
+@return 0 on success, -1 on failure
+*/
 int deleteTask(Task *);
+
+/*
+Edits the title and the description of a given task
+@params pointer to the task to be edited, the new title, the new description
+@return 0 on success, -1 on failure
+*/
 int editTask(Task *, std::string, std::string);
+
+/*
+Shows a list of all the tasks
+@params vector containing all the tasks
+@return 0 on success, -1 if there are no tasks
+*/
 int listAllTasks(std::vector<Task *>);

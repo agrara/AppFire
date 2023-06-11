@@ -1,11 +1,12 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <fstream>
 
 #include "task.h"
-#include "file.h"
 
-std::vector<Task *> tasks; // TODO fill vector from file
+std::string fileName = "./tasks.txt";
+std::vector<Task *> tasks;
 
 std::vector<std::string> menuItems{
     "Available options:",
@@ -20,16 +21,47 @@ void showMenu();
 
 int main()
 {
+
+    short counter = 1;
+    std::string tempTitle;
+    std::string tempDesc;
+    std::string currentLine;
+
+    std::ifstream fileStream(fileName);
+
+    if (fileStream)
+    {
+        while (std::getline(fileStream, currentLine))
+        {
+
+            if (counter == 1)
+            {
+                tempTitle = currentLine;
+                counter++;
+            }
+            else if (counter == 2)
+            {
+                tempDesc = currentLine;
+                counter++;
+            }
+            else if (counter == 3)
+            {
+                tasks.push_back(addTask(tempTitle, tempDesc));
+                counter = 1;
+            }
+        }
+
+        fileStream.close();
+    }
+
     int option = 0;
 
     while (option != 5)
     {
         showMenu();
-        std::cout << std::endl;
         std::cout << "Please select an option!" << std::endl;
         std::cin >> option;
         std::cin.ignore();
-        std::cout << std::endl;
         if (option == 1)
         {
             std::cout << "List fo all tasks:" << std::endl;
@@ -75,10 +107,10 @@ int main()
             {
                 std::string newTitle;
                 std::string newDesc;
-                std::cout << "Current title is " << tasks[taskID - 1]->getTitle() << std::endl;
+                std::cout << "Current title is: " << tasks[taskID - 1]->getTitle() << std::endl;
                 std::cout << "Enter the new one:" << std::endl;
                 getline(std::cin, newTitle);
-                std::cout << "Current description is " << tasks[taskID - 1]->getDesc() << std::endl;
+                std::cout << "Current description is: " << tasks[taskID - 1]->getDesc() << std::endl;
                 std::cout << "Enter the new one:" << std::endl;
                 getline(std::cin, newDesc);
                 tasks[taskID - 1]->setTitle(newTitle);
@@ -93,14 +125,23 @@ int main()
         {
             if (tasks.size() > 0)
             {
+                std::ofstream fileStream(fileName);
                 for (Task *task : tasks)
                 {
+                    fileStream << task->getTitle() << std::endl;
+                    fileStream << task->getDesc() << std::endl;
+                    fileStream << "~" << std::endl;
                     delete task;
                 }
-                // TODO save to file
+                fileStream.close();
+                std::cout << "All data will be saved for further use. Goodbye!" << std::endl;
                 exit;
             }
-            exit;
+            else
+            {
+                std::cout << "Goodbye!" << std::endl;
+                exit;
+            }
         }
         else if (option == 6)
         {
