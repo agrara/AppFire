@@ -22,15 +22,15 @@ void showMenu();
 int main()
 {
 
-    short counter = 1;
-    std::string tempTitle;
-    std::string tempDesc;
-    std::string currentLine;
-
     std::ifstream fileStream(fileName);
 
     if (fileStream)
     {
+        short counter = 1;
+        std::string tempTitle;
+        std::string tempDesc;
+        std::string currentLine;
+
         while (std::getline(fileStream, currentLine))
         {
 
