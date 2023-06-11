@@ -1,5 +1,5 @@
 This code is written in C++ for a console application. 
-Under Linux system build-essentials shuld be installed prior compiling the code.
+Under Linux system build-essentials should be installed prior compiling the code.
 Under Windows there are plenty of IDEs containing integrated compilator or you can use CygWin or Mingw for compiling without installing a dedicated IDE.
 
 From the terminal window navigate to the folder where the files are.
