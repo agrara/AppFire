@@ -56,7 +56,7 @@ int main()
 
     int option = 0;
 
-    while (option != 5)
+    while (1)
     {
         showMenu();
         std::cout << "Please select an option!" << std::endl;
